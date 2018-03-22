@@ -8,6 +8,10 @@
     "egghead",
     "video"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skt-t1-byungi/eggdown.git"
+  },
   "author": {
     "name": "skt-t1-byungi",
     "email": "tiniwz@gmail.com"

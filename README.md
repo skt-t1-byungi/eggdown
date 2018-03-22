@@ -1,5 +1,5 @@
 # eggdown
-egghead downloader for pro member
+🥚 egghead downloader for pro members
 
 ## Usage
 ```sh

@@ -27,6 +27,7 @@ const ask = config => prompts(config, {onCancel: () => logger.fail('plz answer..
       { type: 'confirm', name: 'seriesAll', message: 'download all series?', initial: true },
       { type: 'confirm', name: 'lessonAll', message: 'download all lesson?', initial: true }
     ])
+
     if (tasks.seriesAll || tasks.lessonAll) break
     logger.warn('plz choose at least one.')
   }
@@ -61,22 +62,26 @@ async function run ({
 
   // for login
   const loginMsg = ora('attempting login..').start()
+
   if (!await client.attemptLogin(email, pswd)) return loginMsg.fail('login failed. plz correct email, password.')
   if (!await client.isProMember()) return loginMsg.fail('not a pro account.')
+
   loginMsg.succeed('login success.')
 
   // for worker
   const initMsg = ora('preparing workers..').start()
+
   const inintPromise = range(cpus)
     .map(_ => workers.init({saved: client.save(), baseDir: downDir, overwrite}))
   await Promise.all(inintPromise)
+
   initMsg.succeed('wake up workers.')
 
   // series download
   if (seriesAll) {
     const seriesMsg = ora('start series download..').start()
-    const scheduler = new SeriesScheduler(workers, {concurrency, perPage: 2})
 
+    const scheduler = new SeriesScheduler(workers, {concurrency, perPage: 2})
     const interval = setInterval(_ => {
       const stats = scheduler.stats
       seriesMsg.text = `series downloading.. [${stats.completed}/${stats.totals}]`

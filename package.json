@@ -1,0 +1,37 @@
+{
+  "name": "eggdown",
+  "description": "egghead downloader for pro member",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "bin": "bin/eggdown.js",
+  "keywords": [
+    "egghead",
+    "video"
+  ],
+  "author": {
+    "name": "skt-t1-byungi",
+    "email": "tiniwz@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-byungi": "^0.0.12"
+  },
+  "dependencies": {
+    "auto-bind": "^1.2.0",
+    "fs-extra": "^5.0.0",
+    "is-windows": "^1.0.2",
+    "jar-got": "^0.0.3",
+    "jest-worker": "^22.2.2",
+    "lodash.range": "^3.2.0",
+    "ora": "^2.0.0",
+    "prompts": "^0.1.8",
+    "sanitize-filename": "^1.6.1",
+    "slashes": "^1.0.5",
+    "tough-cookie": "^2.3.4",
+    "ytdl-run": "^0.1.0"
+  },
+  "eslintConfig": {
+    "extends": "byungi"
+  }
+}

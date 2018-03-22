@@ -80,8 +80,8 @@ async function run ({
   // series download
   if (seriesAll) {
     const seriesMsg = ora('start series download..').start()
-
     const scheduler = new SeriesScheduler(workers, {concurrency, perPage: 2})
+
     const interval = setInterval(_ => {
       const stats = scheduler.stats
       seriesMsg.text = `series downloading.. [${stats.completed}/${stats.totals}]`

@@ -3,8 +3,7 @@
 
 ## Usage
 ```sh
-npm i eggdown -g
-eggdown
+npx eggdown
 ```
 
 ## License

@@ -71,9 +71,10 @@ async function run ({
   // for worker
   const initMsg = ora('preparing workers..').start()
 
-  const inintPromise = range(cpus)
-    .map(_ => workers.init({saved: client.save(), baseDir: downDir, overwrite}))
-  await Promise.all(inintPromise)
+  await Promise.all(
+    range(cpus)
+      .map(_ => workers.init({saved: client.save(), baseDir: downDir, overwrite}))
+  )
 
   initMsg.succeed('wake up workers.')
 

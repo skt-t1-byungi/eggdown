@@ -34,11 +34,22 @@ module.exports = class Scheduler {
 
   async _next () {
     try {
-      await this._parseNext()
+      await this._parseNext(++this._page, this.perPage)
       this._parsedPages++
-      if (!this._endPage) this._next()
+
+      this._endPage ? this.resolveIfDone() : this._next()
     } catch (err) {
       this._reject(err)
+    }
+  }
+
+  resolveIfDone () {
+    if (
+      this._endPage &&
+      this._page === this._parsedPages &&
+      this._totals === this._completed
+    ) {
+      this._resolve(this._completed)
     }
   }
 
@@ -46,12 +57,8 @@ module.exports = class Scheduler {
     throw new Error('needs implement!')
   }
 
-  _doneEndPage () {
+  _endParsing () {
     if (!this._endPage) this._endPage = true
-  }
-
-  get _isAllParsed () {
-    return this._endPage && this._page === this._parsedPages
   }
 
   async _downLessonVideo ({signedUrl, mpdUrl}, downDir, fileName) {
@@ -59,6 +66,6 @@ module.exports = class Scheduler {
     await this._workers.downLessonVideo({signedUrl, mpdUrl}, downDir, fileName)
     this._completed++
 
-    if (this._isAllParsed && this._totals === this._completed) this._resolve(this._completed)
+    this.resolveIfDone()
   }
 }

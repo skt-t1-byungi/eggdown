@@ -1,4 +1,5 @@
 const range = require('lodash.range')
+const Defer = require('p-state-defer')
 
 module.exports = class Scheduler {
   constructor (workers, {concurrency, perPage = 10} = {}) {
@@ -15,12 +16,7 @@ module.exports = class Scheduler {
     this._completed = 0
     this._totals = 0
 
-    this._resolve = null
-    this._reject = null
-    this._promise = new Promise((resolve, reject) => {
-      this._resolve = resolve
-      this._reject = reject
-    })
+    this._defer = new Defer()
   }
 
   get stats () {
@@ -29,7 +25,7 @@ module.exports = class Scheduler {
 
   run () {
     range(this._concurrency).forEach(_ => this._next())
-    return this._promise
+    return this._defer.promise
   }
 
   async _next () {
@@ -39,7 +35,7 @@ module.exports = class Scheduler {
 
       this._endPage ? this.resolveIfDone() : this._next()
     } catch (err) {
-      this._reject(err)
+      this._defer.reject(err)
     }
   }
 
@@ -49,7 +45,7 @@ module.exports = class Scheduler {
       this._page === this._parsedPages &&
       this._totals === this._completed
     ) {
-      this._resolve(this._completed)
+      this._defer.resolve(this._completed)
     }
   }
 

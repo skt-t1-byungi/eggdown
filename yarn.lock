@@ -1468,6 +1468,10 @@ p-locate@^2.0.0:
   dependencies:
     p-limit "^1.1.0"
 
+p-state-defer@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/p-state-defer/-/p-state-defer-0.0.5.tgz#8cb9452feff8e38acd730c65d88c5354071f5c87"
+
 p-timeout@^1.1.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/p-timeout/-/p-timeout-1.2.1.tgz#5eb3b353b7fce99f101a1038880bb054ebbea386"

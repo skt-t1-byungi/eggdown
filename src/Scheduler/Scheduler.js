@@ -1,5 +1,5 @@
 const range = require('lodash.range')
-const Defer = require('p-state-defer')
+const Defer = require('p-state-defer').default
 
 module.exports = class Scheduler {
   constructor (workers, {concurrency, perPage = 10} = {}) {

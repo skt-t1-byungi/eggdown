@@ -1,7 +1,7 @@
 {
   "name": "eggdown",
   "description": "egghead downloader for pro member",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "src/index.js",
   "bin": "bin/eggdown.js",
   "keywords": [

@@ -72,7 +72,7 @@ async function run ({
   const initMsg = ora('preparing workers..').start()
 
   await Promise.all(
-    range(cpus)
+    range(concurrency)
       .map(_ => workers.init({saved: client.save(), baseDir: downDir, overwrite}))
   )
 

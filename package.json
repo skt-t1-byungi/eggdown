@@ -34,7 +34,7 @@
         "jest-worker": "^24.0.0",
         "lodash.range": "^3.2.0",
         "ora": "^3.0.0",
-        "p-state-defer": "^0.0.5",
+        "p-state-defer": "^1.0.0",
         "prompts": "^2.0.0",
         "sanitize-filename": "^1.6.1",
         "tough-cookie": "^3.0.0",

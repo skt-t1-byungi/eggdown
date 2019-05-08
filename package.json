@@ -37,7 +37,7 @@
         "p-state-defer": "^0.0.5",
         "prompts": "^0.1.8",
         "sanitize-filename": "^1.6.1",
-        "tough-cookie": "^2.3.4",
+        "tough-cookie": "^3.0.0",
         "ytdl-run": "^0.1.3"
     },
     "eslintConfig": {

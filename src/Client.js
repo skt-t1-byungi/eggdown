@@ -1,4 +1,4 @@
-const {CookieJar} = require('tough-cookie')
+const { CookieJar } = require('tough-cookie')
 const jarGot = require('jar-got')
 const fs = require('fs')
 
@@ -16,7 +16,7 @@ module.exports = class Client {
     }
 
     async attemptLogin (email, pswd) {
-        const {statusCode} = await this._got.post('https://egghead.io/users/sign_in', {
+        const { statusCode } = await this._got.post('https://egghead.io/users/sign_in', {
             form: true,
             throwHttpErrors: false,
             body: {
@@ -31,18 +31,18 @@ module.exports = class Client {
     }
 
     async getCsrfToken () {
-        const {body} = await this._got('https://egghead.io/users/sign_in')
+        const { body } = await this._got('https://egghead.io/users/sign_in')
         const [, csrfToken] = /<meta name="csrf-token" content="(.*)" \/>/.exec(body)
         return csrfToken
     }
 
     async isProMember () {
-        const {body} = (await this._got('https://egghead.io'))
+        const { body } = (await this._got('https://egghead.io'))
         return body.includes("'PRO Member': true")
     }
 
     async getSeriesList (page = 1, perPage = 10) {
-        const {body: seriesList} = await this._got(`https://egghead.io/api/v1/series?load_lessons=true&published=true&page=${page}&per_page=${perPage}`, {json: true})
+        const { body: seriesList } = await this._got(`https://egghead.io/api/v1/series?load_lessons=true&published=true&page=${page}&per_page=${perPage}`, { json: true })
 
         return seriesList.map(series => ({
             label: series.primary_tag.label,
@@ -52,13 +52,13 @@ module.exports = class Client {
     }
 
     async getLessons (page = 1, perPage = 10) {
-        const {body: lessons} = await this._got(`https://egghead.io/api/v1/lessons?state=published&page=${page}&per_page=${perPage}`, {json: true})
+        const { body: lessons } = await this._got(`https://egghead.io/api/v1/lessons?state=published&page=${page}&per_page=${perPage}`, { json: true })
 
         return formatLessons(lessons)
     }
 
     async downVideoBySigned (signedUrl, downPath) {
-        const {body: downUrl} = await this._got(signedUrl)
+        const { body: downUrl } = await this._got(signedUrl)
 
         return new Promise((resolve, reject) => {
             this._got.stream(downUrl)

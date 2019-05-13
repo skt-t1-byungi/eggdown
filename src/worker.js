@@ -13,7 +13,7 @@ class Worker {
         autobind(this)
     }
 
-    init ({saved, overwrite, baseDir}) {
+    init ({ saved, overwrite, baseDir }) {
         this._client = Client.restore(saved)
         this._overwrite = overwrite
         this._baseDir = baseDir
@@ -27,7 +27,7 @@ class Worker {
         return this._client.getLessons(page, perpage)
     }
 
-    async downLessonVideo ({signedUrl, mpdUrl}, downDir, fileName) {
+    async downLessonVideo ({ signedUrl, mpdUrl }, downDir, fileName) {
         downDir = path.join(this._baseDir, downDir)
         const downPath = path.join(downDir, fileName)
 

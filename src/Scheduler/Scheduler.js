@@ -2,7 +2,7 @@ const range = require('lodash.range')
 const Defer = require('p-state-defer').default
 
 module.exports = class Scheduler {
-    constructor (workers, {concurrency, perPage = 10} = {}) {
+    constructor (workers, { concurrency, perPage = 10 } = {}) {
         this._workers = workers
         this._concurrency = concurrency
 
@@ -40,11 +40,7 @@ module.exports = class Scheduler {
     }
 
     resolveIfDone () {
-        if (
-            this._endPage &&
-      this._page === this._parsedPages &&
-      this._totals === this._completed
-        ) {
+        if (this._endPage && this._page === this._parsedPages && this._totals === this._completed) {
             this._defer.resolve(this._completed)
         }
     }
@@ -57,9 +53,9 @@ module.exports = class Scheduler {
         if (!this._endPage) this._endPage = true
     }
 
-    async _downLessonVideo ({signedUrl, mpdUrl}, downDir, fileName) {
+    async _downLessonVideo ({ signedUrl, mpdUrl }, downDir, fileName) {
         this._totals++
-        await this._workers.downLessonVideo({signedUrl, mpdUrl}, downDir, fileName)
+        await this._workers.downLessonVideo({ signedUrl, mpdUrl }, downDir, fileName)
         this._completed++
 
         this.resolveIfDone()

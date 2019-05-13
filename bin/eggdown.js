@@ -2,7 +2,7 @@
 const prompts = require('prompts')
 const ora = require('ora')
 const path = require('path')
-const {default: Worker} = require('jest-worker')
+const { default: Worker } = require('jest-worker')
 const cpus = require('os').cpus().length
 const range = require('lodash.range')
 const logger = ora()
@@ -13,7 +13,7 @@ const {
     LessonScheduler
 } = require('../src')
 
-const ask = config => prompts(config, {onCancel: () => logger.fail('plz answer..') && process.exit()});
+const ask = config => prompts(config, { onCancel: () => logger.fail('plz answer..') && process.exit() });
 
 (async () => {
     const account = await ask([
@@ -42,10 +42,10 @@ const ask = config => prompts(config, {onCancel: () => logger.fail('plz answer..
     ])
 
     const concurrency = Math.min(8, cpus)
-    const workers = new Worker(require.resolve('../src/worker.js'), {numWorkers: concurrency})
+    const workers = new Worker(require.resolve('../src/worker.js'), { numWorkers: concurrency })
 
     try {
-        await run({...account, ...tasks, ...etc, workers, concurrency})
+        await run({ ...account, ...tasks, ...etc, workers, concurrency })
     } catch (err) {
         logger.fail('unknown error occurred! T-T')
         process.exit(1)
@@ -73,7 +73,7 @@ async function run ({
 
     await Promise.all(
         range(concurrency)
-            .map(_ => workers.init({saved: client.save(), baseDir: downDir, overwrite}))
+            .map(_ => workers.init({ saved: client.save(), baseDir: downDir, overwrite }))
     )
 
     initMsg.succeed('wake up workers.')
@@ -81,7 +81,7 @@ async function run ({
     // series download
     if (seriesAll) {
         const seriesMsg = ora('start series download..').start()
-        const scheduler = new SeriesScheduler(workers, {concurrency, perPage: 2})
+        const scheduler = new SeriesScheduler(workers, { concurrency, perPage: 2 })
 
         const interval = setInterval(_ => {
             const stats = scheduler.stats
@@ -97,7 +97,7 @@ async function run ({
     // lessons download
     if (lessonAll) {
         const lessonMsg = ora('start lesson download..').start()
-        const scheduler = new LessonScheduler(workers, {concurrency})
+        const scheduler = new LessonScheduler(workers, { concurrency })
 
         const interval = setInterval(_ => {
             const stats = scheduler.stats
